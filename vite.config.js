@@ -1,0 +1,25 @@
+/* EITHERWAY_CHAINLINK_UI_ALIAS */
+import path from 'path'
+import { fileURLToPath } from 'url'
+const __ewDir = path.dirname(fileURLToPath(import.meta.url))
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  resolve: { alias: { '@eitherway/chainlink-ui': path.resolve(__ewDir, 'src/lib/chainlink-ui') } },
+  plugins: [react()],
+  server: {
+    watch: {
+      usePolling: true,
+      interval: 1000,
+    },
+    headers: {
+      'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
+      'Cross-Origin-Embedder-Policy': 'credentialless',
+      'Cross-Origin-Resource-Policy': 'cross-origin'
+    },
+    cors: true,
+    host: true,
+    allowedHosts: true
+  }
+});
